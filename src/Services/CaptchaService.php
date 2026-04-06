@@ -164,11 +164,11 @@ class CaptchaService
             case 'math':
                 $n1 = rand(1, 9);
                 $n2 = rand(1, 9);
-                $operators = ['+', '-'];
-                $operator = $operators[rand(0, 1)];
+                $operators = ['+', '-', '*'];
+                $operator = $operators[rand(0, 2)];
                 
                 $display = "$n1 $operator $n2";
-                $answer = $operator === '+' ? ($n1 + $n2) : ($n1 - $n2);
+                $answer = $operator === '+' ? ($n1 + $n2) : ($operator === '-' ? ($n1 - $n2) : ($n1 * $n2));
                 
                 return ['display' => $display, 'answer' => (string)$answer];
                 
