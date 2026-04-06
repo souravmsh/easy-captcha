@@ -63,10 +63,17 @@ Once the form is submitted, validate the user's input:
 
 ```php
 use Illuminate\Http\Request;
+use Souravmsh\EasyCaptcha\Rules\Captcha;
 
 public function submit(Request $request) {
+    // Option 1: String rule (Standard)
     $request->validate([
         'captcha' => 'required|captcha'
+    ]);
+
+    // Option 2: Class-based rule (More robust)
+    $request->validate([
+        'captcha' => ['required', new Captcha]
     ]);
 
     // Success! 
