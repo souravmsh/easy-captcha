@@ -10,7 +10,7 @@ class CaptchaServiceTest extends TestCase
 {
     public function test_validate_returns_true_when_disabled()
     {
-        config(['easy-captcha.enabled' => false]);
+        config(['easy_captcha.enabled' => false]);
         
         $this->assertTrue(EasyCaptcha::validate('anything'));
     }
@@ -32,7 +32,7 @@ class CaptchaServiceTest extends TestCase
     
     public function test_img_returns_empty_when_disabled()
     {
-        config(['easy-captcha.enabled' => false]);
+        config(['easy_captcha.enabled' => false]);
         
         $this->assertEquals('', EasyCaptcha::img());
     }

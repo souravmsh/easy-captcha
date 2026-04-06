@@ -20,7 +20,7 @@ class CaptchaTest extends TestCase
     
     public function test_generation_route_returns_404_when_disabled()
     {
-        config(['easy-captcha.enabled' => false]);
+        config(['easy_captcha.enabled' => false]);
         
         $response = $this->get('/easy-captcha/generate');
         

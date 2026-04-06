@@ -12,7 +12,7 @@ class CaptchaService
 
     public function __construct(Config $config)
     {
-        $this->config = $config->get('easy-captcha');
+        $this->config = $config->get('easy_captcha');
     }
 
     /**

@@ -24,7 +24,7 @@ class TestCase extends OrchestraTestCase
 
     protected function defineEnvironment($app)
     {
-        $app['config']->set('easy-captcha', [
+        $app['config']->set('easy_captcha', [
             'enabled' => true,
             'type' => 'math',
             'characters' => '23456789',

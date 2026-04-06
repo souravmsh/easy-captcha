@@ -13,7 +13,7 @@ class EasyCaptchaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/easy-captcha.php' => config_path('easy-captcha.php'),
+            __DIR__.'/../config/easy_captcha.php' => config_path('easy_captcha.php'),
         ], 'easy-captcha-config');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -41,7 +41,7 @@ class EasyCaptchaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/easy-captcha.php', 'easy-captcha'
+            __DIR__.'/../config/easy_captcha.php', 'easy_captcha'
         );
 
         $this->app->singleton('easy-captcha', function ($app) {

@@ -18,7 +18,7 @@ Optionally publish the configuration file to customize CAPTCHA sizes and colors:
 php artisan vendor:publish --tag=easy-captcha-config
 ```
 
-You can change the CAPTCHA type in `config/easy-captcha.php`, or easily turn the CAPTCHA off completely for local development/testing using your `.env` file:
+You can change the CAPTCHA type in `config/easy_captcha.php`, or easily turn the CAPTCHA off completely for local development/testing using your `.env` file:
 ```env
 EASY_CAPTCHA_ENABLED=false
 EASY_CAPTCHA_TYPE=math
