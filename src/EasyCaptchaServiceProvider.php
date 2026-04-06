@@ -23,9 +23,16 @@ class EasyCaptchaServiceProvider extends ServiceProvider
             return "<?php echo \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::img($expression); ?>";
         });
 
-        \Illuminate\Support\Facades\Validator::extend('easy_captcha', function ($attribute, $value, $parameters, $validator) {
-            return \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::validate($value);
-        }, 'The :attribute is incorrect.');
+        $this->app->booted(function () {
+            $validator = $this->app['validator'];
+            $validator->extend('easy_captcha', function ($attribute, $value) {
+                return \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::validate($value);
+            }, 'The :attribute is incorrect.');
+
+            $validator->extend('easyCaptcha', function ($attribute, $value) {
+                return \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::validate($value);
+            }, 'The :attribute is incorrect.');
+        });
     }
 
     /**

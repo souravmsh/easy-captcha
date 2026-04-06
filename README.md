@@ -1,8 +1,8 @@
 # Easy Captcha
 
-An easy, lightweight, pure image-based CAPTCHA package for Laravel (Requires ext-gd). Supported for Laravel 7 up to 13.
-
+An easy, lightweight, pure image-based CAPTCHA package for Laravel (Requires ext-gd).
 No third-party APIs needed. The CAPTCHA generates standard image data dynamically directly via PHP.
+Also supports Google reCAPTCHA v2/v3.
 
 ## Installation
 
