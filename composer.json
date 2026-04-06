@@ -1,0 +1,43 @@
+{
+    "name": "souravmsh/easy-captcha",
+    "description": "A pure image-based CAPTCHA package for Laravel 7 to 13",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shohrab Hossain",
+            "email": "sourav.diubd@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5|^8.0",
+        "ext-gd": "*",
+        "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5|^9.5|^10.0|^11.0",
+        "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Souravmsh\\EasyCaptcha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Souravmsh\\EasyCaptcha\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Souravmsh\\EasyCaptcha\\EasyCaptchaServiceProvider"
+            ],
+            "aliases": {
+                "EasyCaptcha": "Souravmsh\\EasyCaptcha\\Facades\\EasyCaptcha"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
