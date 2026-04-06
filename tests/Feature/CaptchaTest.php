@@ -27,4 +27,25 @@ class CaptchaTest extends TestCase
         $response->assertStatus(404);
         $this->assertFalse(Session::has('easy_captcha'));
     }
+
+    public function test_custom_validation_rule_validates_correctly()
+    {
+        Session::put('easy_captcha', 'correctanswer');
+
+        $validator = \Illuminate\Support\Facades\Validator::make(
+            ['captcha' => 'correctanswer'],
+            ['captcha' => 'easy_captcha']
+        );
+
+        $this->assertTrue($validator->passes());
+
+        Session::put('easy_captcha', 'correctanswer');
+
+        $validatorFails = \Illuminate\Support\Facades\Validator::make(
+            ['captcha' => 'wronganswer'],
+            ['captcha' => 'easy_captcha']
+        );
+
+        $this->assertFalse($validatorFails->passes());
+    }
 }

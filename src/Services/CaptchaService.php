@@ -144,9 +144,14 @@ class CaptchaService
         $id = $attributes['id'] ?? 'easy-captcha-image-' . rand(1000, 9999);
         $attrStr .= ' id="' . $id . '"';
 
-        return '<div class="easy-captcha-wrapper" style="display: flex; align-items: center; gap: 8px;">
-            <img src="' . $url . '" alt="CAPTCHA" ' . $attrStr . '>
-            <button type="button" onclick="document.getElementById(\'' . $id . '\').src = \'' . $url . '?\' + Math.random()" class="easy-captcha-reload-btn" style="cursor: pointer;" title="Reload CAPTCHA">&#x21bb;</button>
+        return '<div class="easy-captcha-wrapper" style="position: relative; display: inline-block;">
+            <img src="' . $url . '" alt="CAPTCHA" ' . $attrStr . ' style="display: block;">
+            <button type="button" onclick="document.getElementById(\'' . $id . '\').src = \'' . $url . '?\' + Math.random()" 
+                class="easy-captcha-reload-btn" 
+                style="position: absolute; top: 5px; right: 5px; cursor: pointer; background: rgba(255, 255, 255, 0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: #333; font-size: 18px; transition: all 0.3s ease; backdrop-filter: blur(4px); z-index: 10;" 
+                onmouseover="this.style.background=\'#fff\'; this.style.transform=\'rotate(180deg)\'; this.style.color=\'#007bff\';" 
+                onmouseout="this.style.background=\'rgba(255, 255, 255, 0.8)\'; this.style.transform=\'rotate(0deg)\'; this.style.color=\'#333\';"
+                title="Reload CAPTCHA">&#x21bb;</button>
         </div>';
     }
 

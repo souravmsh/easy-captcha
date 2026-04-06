@@ -22,6 +22,10 @@ class EasyCaptchaServiceProvider extends ServiceProvider
             $expression = $expression ?: '[]';
             return "<?php echo \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::img($expression); ?>";
         });
+
+        \Illuminate\Support\Facades\Validator::extend('easy_captcha', function ($attribute, $value, $parameters, $validator) {
+            return \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::validate($value);
+        }, 'The :attribute is incorrect.');
     }
 
     /**

@@ -62,17 +62,12 @@ Or you can use the Facade manually if you need more control:
 Once the form is submitted, validate the user's input:
 
 ```php
-use Souravmsh\EasyCaptcha\Facades\EasyCaptcha;
 use Illuminate\Http\Request;
 
 public function submit(Request $request) {
     $request->validate([
-        'captcha' => 'required|string'
+        'captcha' => 'required|easy_captcha'
     ]);
-
-    if (!EasyCaptcha::validate($request->captcha)) {
-        return back()->withErrors(['captcha' => 'Invalid CAPTCHA']);
-    }
 
     // Success! 
     return "Valid CAPTCHA!";

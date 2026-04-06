@@ -23,7 +23,7 @@ return [
     
     'length' => env('EASY_CAPTCHA_LENGTH', 5),
 
-    'width' => env('EASY_CAPTCHA_WIDTH', 150),
+    'width' => env('EASY_CAPTCHA_WIDTH', 250),
 
     'height' => env('EASY_CAPTCHA_HEIGHT', 50),
 
