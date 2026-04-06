@@ -66,7 +66,7 @@ use Illuminate\Http\Request;
 
 public function submit(Request $request) {
     $request->validate([
-        'captcha' => 'required|easy_captcha'
+        'captcha' => 'required|captcha'
     ]);
 
     // Success! 
