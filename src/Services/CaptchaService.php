@@ -260,6 +260,14 @@ class CaptchaService
             mkdir($directory, 0755, true);
         }
 
+        // 1. Per-User Deletion: Remove the previous image for this session if it exists
+        if (Session::has('easy_captcha_path')) {
+            $oldPath = Session::get('easy_captcha_path');
+            if (file_exists($oldPath)) {
+                @unlink($oldPath);
+            }
+        }
+
         $filename = 'captcha_' . uniqid() . '.png';
         $path = $directory . '/' . $filename;
 
@@ -269,10 +277,51 @@ class CaptchaService
         // Store the file path in session for later cleanup
         Session::put('easy_captcha_path', $path);
 
+        // 2. Perform global cleanup (Expiry and FIFO limit)
+        $this->cleanupStorage($directory);
+
         return response()->file($path, [
             'Content-type' => 'image/png',
             'Cache-Control' => 'no-cache, no-store, max-age=0, must-revalidate',
             'Pragma' => 'no-cache'
         ]);
+    }
+
+    /**
+     * Cleanup old CAPTCHA images based on expiry and global limit.
+     */
+    protected function cleanupStorage($directory)
+    {
+        if (!is_dir($directory)) {
+            return;
+        }
+
+        $files = glob($directory . '/captcha_*.png');
+        $expiryMinutes = $this->config['expiry_minutes'] ?? 60;
+        $expireTime = time() - ($expiryMinutes * 60);
+
+        // a. Delete expired images (> 1 hour old by default)
+        foreach ($files as $file) {
+            if (filemtime($file) < $expireTime) {
+                @unlink($file);
+            }
+        }
+
+        // b. Enforce global storage limit (FIFO)
+        $files = glob($directory . '/captcha_*.png');
+        $limit = $this->config['storage_limit'] ?? 10;
+
+        if (count($files) > $limit) {
+            // Sort by modification time (oldest first)
+            usort($files, function ($a, $b) {
+                return filemtime($a) - filemtime($b);
+            });
+
+            // Delete oldest images until we reach the limit
+            $toDelete = count($files) - $limit;
+            for ($i = 0; $i < $toDelete; $i++) {
+                @unlink($files[$i]);
+            }
+        }
     }
 }

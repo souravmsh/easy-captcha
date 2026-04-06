@@ -40,4 +40,8 @@ return [
     'lines' => 4, // Number of background noise lines
     
     'dots' => 80, // Number of background noise dots
+
+    'storage_limit' => 1000, // Max number of images to keep globally
+
+    'expiry_minutes' => 60, // Delete images older than this
 ];
