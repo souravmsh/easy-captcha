@@ -232,12 +232,16 @@ class CaptchaService
 
         // Add text
         $fontSize = $this->config['font_size'] ?? 20;
+        $fontWeight = $this->config['font_weight'] ?? 1;
         $fontPath = $this->config['font_path'] ?? null;
         
         if ($fontPath && function_exists('imagettftext')) {
             $x = ($width - ($fontSize * strlen($text))) / 2;
             $y = ($height + $fontSize) / 2;
-            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+            
+            for ($i = 0; $i < $fontWeight; $i++) {
+                imagettftext($image, $fontSize, 0, $x + $i, $y, $textColor, $fontPath, $text);
+            }
         } else {
             // Fallback for built-in GD font
             $fontWidth = imagefontwidth(5);
@@ -251,7 +255,10 @@ class CaptchaService
             for ($i = 0; $i < $length; $i++) {
                 $charX = $x + ($i * 15); // spaced out slightly
                 $charY = $y + rand(-5, 5); // bouncing effect
-                imagestring($image, 5, $charX, $charY, $text[$i], $textColor);
+                
+                for ($j = 0; $j < $fontWeight; $j++) {
+                    imagestring($image, 5, $charX + $j, $charY, $text[$i], $textColor);
+                }
             }
         }
 
