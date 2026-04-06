@@ -21,6 +21,8 @@ return [
 
     'google_api_version' => env('EASY_CAPTCHA_GOOGLE_API_VERSION', 'v3'), // v2 or v3 - if not set then default v3
 
+    'google_score_threshold' => env('EASY_CAPTCHA_GOOGLE_SCORE_THRESHOLD', 0.5), // Score threshold for v3
+
     'characters' => env('EASY_CAPTCHA_CHARACTERS', '23456789abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'),
 
     'length' => env('EASY_CAPTCHA_LENGTH', 5),

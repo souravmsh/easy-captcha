@@ -79,7 +79,7 @@ class CaptchaService
     }
 
     /**
-     * Verifies against Google Recaptcha v2/ endpoint
+     * Verifies against Google Recaptcha endpoints (v2 or v3)
      */
     protected function verifyGoogleRecaptcha($responseVal)
     {
@@ -110,7 +110,18 @@ class CaptchaService
         }
         
         $response = json_decode($result, true);
-        return $response['success'] ?? false;
+        $success = $response['success'] ?? false;
+
+        $apiVersion = (string)($this->config['google_api_version'] ?? 'v3');
+        $isV3 = in_array(strtolower($apiVersion), ['3', 'v3']);
+
+        if ($isV3 && $success) {
+            $threshold = $this->config['google_score_threshold'] ?? 0.5;
+            $score = $response['score'] ?? 0;
+            return $score >= $threshold;
+        }
+
+        return $success;
     }
 
     /**
@@ -132,9 +143,10 @@ class CaptchaService
                 throw new \Exception('Easy Captcha: Google Site Key (EASY_CAPTCHA_GOOGLE_SITE_KEY) must be set in the configuration when type is google.');
             }
             
-            $apiVersion = $this->config['google_api_version'] ?? '3';
+            $apiVersion = (string)($this->config['google_api_version'] ?? 'v3');
+            $isV2 = in_array(strtolower($apiVersion), ['2', 'v2']);
             
-            if ($apiVersion === '2') {
+            if ($isV2) {
                 return '<div class="g-recaptcha" data-sitekey="' . htmlspecialchars($siteKey) . '"></div><script src="https://www.google.com/recaptcha/api.js" async defer></script>';
             } else {
                 return '<script src="https://www.google.com/recaptcha/api.js?render=' . htmlspecialchars($siteKey) . '"></script>';
