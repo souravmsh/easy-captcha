@@ -76,6 +76,16 @@ public function submit(Request $request) {
         'captcha' => ['required', new Captcha]
     ]);
 
+    // Option 3: Alias rule (More robust)
+    $request->validate([
+        'captcha' => 'required|easy_captcha'
+    ]);
+
+    // Option 4: Alias rule (More robust)
+    $request->validate([
+        'captcha' => 'required|easyCaptcha'
+    ]);
+
     // Success! 
     return "Valid CAPTCHA!";
 }
