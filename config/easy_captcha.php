@@ -37,7 +37,7 @@ return [
 
     'font_path' => null, // Provide absolute path to custom .ttf font file, otherwise default GD font is used
     
-    'lines' => 5, // Number of background noise lines
+    'lines' => 4, // Number of background noise lines
     
-    'dots' => 100, // Number of background noise dots
+    'dots' => 80, // Number of background noise dots
 ];
