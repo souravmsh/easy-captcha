@@ -54,6 +54,7 @@ class EasyCaptchaServiceProvider extends ServiceProvider
 
             $validator->extend('captcha', $callback, 'The :attribute is incorrect.');
             $validator->extend('easy_captcha', $callback, 'The :attribute is incorrect.');
+            $validator->extend('easyCaptcha', $callback, 'The :attribute is incorrect.');
         });
     }
 }
