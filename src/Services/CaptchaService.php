@@ -79,7 +79,7 @@ class CaptchaService
     }
 
     /**
-     * Verifies against Google Recaptcha v2/v3 endpoint
+     * Verifies against Google Recaptcha v2/ endpoint
      */
     protected function verifyGoogleRecaptcha($responseVal)
     {
@@ -131,7 +131,14 @@ class CaptchaService
             if (empty($siteKey)) {
                 throw new \Exception('Easy Captcha: Google Site Key (EASY_CAPTCHA_GOOGLE_SITE_KEY) must be set in the configuration when type is google.');
             }
-            return '<div class="g-recaptcha" data-sitekey="' . htmlspecialchars($siteKey) . '"></div><script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+            
+            $apiVersion = $this->config['google_api_version'] ?? '3';
+            
+            if ($apiVersion === '2') {
+                return '<div class="g-recaptcha" data-sitekey="' . htmlspecialchars($siteKey) . '"></div><script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+            } else {
+                return '<script src="https://www.google.com/recaptcha/api.js?render=' . htmlspecialchars($siteKey) . '"></script>';
+            }
         }
 
         $url = route('easy-captcha.generate');
