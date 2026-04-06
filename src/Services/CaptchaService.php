@@ -207,16 +207,17 @@ class CaptchaService
 
         $image = imagecreatetruecolor($width, $height);
 
-        // Colors
-        $bgColorRGB = $this->config['bg_color'] ?? [255, 255, 255];
-        $textColorRGB = $this->config['text_color'] ?? [50, 50, 50];
-        $lineColorRGB = $this->config['line_color'] ?? [200, 200, 200];
+            // Colors
+        $bgColorRGB = $this->parseColor($this->config['bg_color'] ?? '', [255, 255, 255]);
+        $textColorRGB = $this->parseColor($this->config['text_color'] ?? '', [11, 48, 112]);
+        $lineColorRGB = $this->parseColor($this->config['line_color'] ?? '', [84, 46, 46]);
 
         $bgColor = imagecolorallocate($image, $bgColorRGB[0], $bgColorRGB[1], $bgColorRGB[2]);
         $textColor = imagecolorallocate($image, $textColorRGB[0], $textColorRGB[1], $textColorRGB[2]);
         $lineColor = imagecolorallocate($image, $lineColorRGB[0], $lineColorRGB[1], $lineColorRGB[2]);
 
-        imagefill($image, 0, 0, $bgColor);
+        // Create background
+        imagefilledrectangle($image, 0, 0, $width, $height, $bgColor);
 
         // Generate lines
         $lines = $this->config['lines'] ?? 5;
@@ -330,5 +331,40 @@ class CaptchaService
                 @unlink($files[$i]);
             }
         }
+    }
+
+    /**
+     * Parse hex or RGB color to RGB array.
+     *
+     * @param mixed $color
+     * @param array $default
+     * @return array
+     */
+    protected function parseColor($color, $default = [0, 0, 0])
+    {
+        if (is_array($color) && count($color) === 3) {
+            return $color;
+        }
+
+        if (is_string($color)) {
+            $color = trim($color);
+            $color = ltrim($color, '#');
+            
+            if (strlen($color) === 3) {
+                return [
+                    hexdec($color[0] . $color[0]),
+                    hexdec($color[1] . $color[1]),
+                    hexdec($color[2] . $color[2]),
+                ];
+            } elseif (strlen($color) === 6) {
+                return [
+                    hexdec(substr($color, 0, 2)),
+                    hexdec(substr($color, 2, 2)),
+                    hexdec(substr($color, 4, 2)),
+                ];
+            }
+        }
+
+        return $default;
     }
 }
