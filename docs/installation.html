@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - Easy Captcha Docs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 4rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 32px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        aside {
+            width: 250px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+            border-left: 3px solid var(--primary);
+        }
+
+        main {
+            flex: 1;
+            padding-bottom: 6rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid var(--glass-border);
+            margin: 1.5rem 0;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                position: static;
+                margin-bottom: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Easy Captcha Logo">
+                Easy Captcha
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="https://github.com/souravmsh/easy-captcha">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside>
+            <ul class="sidebar-nav">
+                <li><a href="installation.html" class="active">Installation</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="usage.html">Usage Guide</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <h1>Installation</h1>
+            <p>Get started with Easy Captcha in your Laravel project. A lightweight, secure solution for anti-bot
+                protection.</p>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h2>Install via Composer</h2>
+                    <p>Run the following command in your terminal to add the package to your project:</p>
+                    <pre><code>composer require souravmsh/easy-captcha</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h2>Register Service Provider</h2>
+                    <p>The package supports <strong>auto-discovery</strong>. If you need to register it manually:</p>
+
+                    <h3>For Laravel 11+</h3>
+                    <p>Update <code>bootstrap/providers.php</code>:</p>
+                    <pre><code>return [
+    // ...
+    Souravmsh\EasyCaptcha\EasyCaptchaServiceProvider::class,
+];</code></pre>
+
+                    <h3>For Laravel 7–10</h3>
+                    <p>Update the <code>providers</code> array in <code>config/app.php</code>:</p>
+                    <pre><code>'providers' => [
+    // ...
+    Souravmsh\EasyCaptcha\EasyCaptchaServiceProvider::class,
+],</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h2>Publish Configuration</h2>
+                    <p>Customize your CAPTCHA settings by publishing the configuration file:</p>
+                    <pre><code>php artisan vendor:publish --tag=easy-captcha-config</code></pre>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; display: flex; justify-content: flex-end;">
+                <a href="configuration.html"
+                    style="color: var(--primary); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    Next: Configuration &rarr;
+                </a>
+            </div>
+
+            <footer class="footer">
+                <p>&copy; 2024 Shohrab Hossain. MIT License.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

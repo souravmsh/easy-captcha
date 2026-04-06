@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Captcha - Lightweight Laravel CAPTCHA Package</title>
+    <meta name="description"
+        content="A pure image-based CAPTCHA package for Laravel. Easy to install, lightweight, and supports Google reCAPTCHA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 6rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+        }
+
+        .features {
+            padding: 6rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--text-dim);
+        }
+
+        .code-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .code-block {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: left;
+            margin: 2rem auto;
+            max-width: 800px;
+            overflow-x: auto;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .code-block pre {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        /* Subtle animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content,
+        .hero-image,
+        .feature-card {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .hero-image {
+            animation-delay: 0.2s;
+        }
+
+        .features .feature-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .features .feature-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .features .feature-card:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 4rem 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="assets/logo.png" alt="Easy Captcha Logo">
+                Easy Captcha
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="installation.html">Docs</a>
+                <a href="https://github.com/souravmsh/easy-captcha">GitHub</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Secure your Laravel apps, <span style="color: var(--primary);">effortlessly.</span></h1>
+                <p>A lightweight, pure PHP image-based CAPTCHA package. No external APIs, no bloat, just security.</p>
+                <a href="installation.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="hero-image">
+                <img src="assets/mockup.png" alt="Easy Captcha Mockup">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="feature-card">
+                <h3>Image-Based</h3>
+                <p>Pure dynamic image generation using PHP GD. No third-party dependencies or external API calls
+                    required.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Math & Types</h3>
+                <p>Supports Math problems, Random text, Alphabet-only, and Numeric-only CAPTCHAs out of the box.</p>
+            </div>
+            <div class="feature-card">
+                <h3>reCAPTCHA Support</h3>
+                <p>Seamlessly switch to Google reCAPTCHA v2 or v3 with simple configuration changes.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Blade Ready</h3>
+                <p>Comes with a convenient `@easyCaptcha` blade directive for instant implementation in your forms.</p>
+            </div>
+        </section>
+
+        <section class="code-section">
+            <h2>Quick Installation</h2>
+            <div class="code-block">
+                <pre><code>composer require souravmsh/easy-captcha</code></pre>
+            </div>
+            <p style="color: var(--text-dim);">Ready to go in less than 60 seconds.</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Shohrab Hossain. Licensed under MIT.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple scroll reveal
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
