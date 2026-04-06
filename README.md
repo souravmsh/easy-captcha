@@ -10,7 +10,7 @@ Also supports Google reCAPTCHA v2/v3.
 composer require souravmsh/easy-captcha
 ```
 
-The package is auto-discovered by Laravel. If auto-discovery is disabled, register the service provider manually:
+The package is auto-discovered by Laravel. If auto-discovery is disabled, register the service provider manually (optional):
 
 **Laravel 11+** — in `bootstrap/providers.php`:
 ```php
@@ -34,6 +34,12 @@ Optionally publish the configuration file to customize CAPTCHA sizes and colors:
 
 ```bash
 php artisan vendor:publish --tag=easy-captcha-config
+```
+
+To overwrite an already published config:
+
+```bash
+php artisan vendor:publish --tag=easy-captcha-config --force
 ```
 
 You can change the CAPTCHA type in `config/easy_captcha.php`, or easily turn the CAPTCHA off completely for local development/testing using your `.env` file:
