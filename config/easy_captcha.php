@@ -35,6 +35,8 @@ return [
 
     'font_size' => 20,
 
+    'font_weight' => 2, // Font weight for the CAPTCHA text (1 = normal, >1 = bolder) - range 1 to 5
+
     'font_path' => null, // Provide absolute path to custom .ttf font file, otherwise default GD font is used
     
     'lines' => 4, // Number of background noise lines
