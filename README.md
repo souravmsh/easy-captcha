@@ -1,8 +1,14 @@
 # Easy Captcha
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/souravmsh/easy-captcha.svg?style=flat-square)](https://packagist.org/packages/souravmsh/easy-captcha)
+[![Total Downloads](https://img.shields.io/packagist/dt/souravmsh/easy-captcha.svg?style=flat-square)](https://packagist.org/packages/souravmsh/easy-captcha)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+
 An easy, lightweight, pure image-based CAPTCHA package for Laravel (Requires ext-gd).
 No third-party APIs needed. The CAPTCHA generates standard image data dynamically directly via PHP.
 Also supports Google reCAPTCHA v2/v3.
+
+**[View Landing Page & Documentation](https://souravmsh.github.io/easy-captcha/)**
 
 ## Installation
 

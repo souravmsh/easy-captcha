@@ -1,7 +1,7 @@
 {
     "name": "souravmsh/easy-captcha",
     "description": "A pure image-based CAPTCHA package for Laravel",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "keywords": [
         "captcha",
         "laravel",
