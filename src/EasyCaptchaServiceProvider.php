@@ -4,7 +4,7 @@ namespace Souravmsh\EasyCaptcha;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Validation\Factory as Validator;
+use Illuminate\Contracts\Validation\Factory;
 
 class EasyCaptchaServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class EasyCaptchaServiceProvider extends ServiceProvider
     /**
      * Bootstrap any package services.
      */
-    public function boot(Validator $validator)
+    public function boot()
     {
         $this->publishes([
             __DIR__.'/../config/easy_captcha.php' => config_path('easy_captcha.php'),
@@ -38,13 +38,22 @@ class EasyCaptchaServiceProvider extends ServiceProvider
             return "<?php echo \Souravmsh\EasyCaptcha\Facades\EasyCaptcha::img($expression); ?>";
         });
 
-        // Register validation rules: 'captcha' and 'easy_captcha'
-        $validator->extend('captcha', function ($attribute, $value) {
-            return $this->app['easy-captcha']->validate($value);
-        }, 'The :attribute is incorrect.');
+        $this->registerValidationRules();
+    }
 
-        $validator->extend('easy_captcha', function ($attribute, $value) {
-            return $this->app['easy-captcha']->validate($value);
-        }, 'The :attribute is incorrect.');
+    /**
+     * Register the custom validation rules.
+     * Uses callAfterResolving to ensure the validator factory is ready.
+     */
+    protected function registerValidationRules()
+    {
+        $this->callAfterResolving(Factory::class, function (Factory $validator) {
+            $callback = function ($attribute, $value) {
+                return $this->app['easy-captcha']->validate($value);
+            };
+
+            $validator->extend('captcha', $callback, 'The :attribute is incorrect.');
+            $validator->extend('easy_captcha', $callback, 'The :attribute is incorrect.');
+        });
     }
 }
