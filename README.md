@@ -62,10 +62,11 @@ Supported types:
 - `'google'` (Google reCAPTCHA v2/v3 support!)
 
 ### Setting up Google reCAPTCHA 
-If you choose `google` as the CAPTCHA type, our blade directive and validation facade will automatically hook into Google's APIs. Add your site/secret keys inside the `.env`:
+If you choose `google` as the CAPTCHA type, our blade directive and validation facade will automatically hook into Google's APIs. If you want to use older version like v3 then spefify in config file, default is v3. Add your site/secret keys inside the `.env`:
 
 ```env
 EASY_CAPTCHA_TYPE=google
+EASY_CAPTCHA_GOOGLE_API_VERSION=3 
 EASY_CAPTCHA_GOOGLE_SITE_KEY=your-site-key-here
 EASY_CAPTCHA_GOOGLE_SECRET_KEY=your-secret-key-here
 ```
