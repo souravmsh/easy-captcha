@@ -47,7 +47,7 @@ return [
 
     // Supported fonts: 'IndieFlower', 'SpecialElite', 'CourierPrime', 'Ubuntu-Bold', 'UbuntuMono-Regular', 'Ubuntu-Italic'
     // Or provide absolute path to custom .ttf file
-    'font_path' => env('EASY_CAPTCHA_FONT_PATH', 'IndieFlower'),
+    'font_path' => env('EASY_CAPTCHA_FONT_PATH', 'UbuntuMono-Regular'),
 
     'lines' => env('EASY_CAPTCHA_LINES', 3), // Number of background noise lines
 

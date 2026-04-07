@@ -52,6 +52,7 @@ You can change the CAPTCHA type in `config/easy_captcha.php`, or easily turn the
 ```env
 EASY_CAPTCHA_ENABLED=false
 EASY_CAPTCHA_TYPE=math
+EASY_CAPTCHA_FONT_PATH=UbuntuMono-Regular
 ```
 
 ### Bundled Fonts (Latest!)
