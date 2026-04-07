@@ -10,6 +10,7 @@ After publishing the config file, you will find it at `config/easy_captcha.php`.
 return [
     'enabled' => env('EASY_CAPTCHA_ENABLED', true),
     'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google, turnstile
+    'font_path' => env('EASY_CAPTCHA_FONT_PATH', 'IndieFlower'), // options: IndieFlower, SpecialElite, CourierPrime, Ubuntu-Bold, etc.
     // ... other settings
 ];
 ```

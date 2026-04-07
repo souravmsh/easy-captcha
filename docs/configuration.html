@@ -226,8 +226,26 @@
             <pre><code>return [
     'enabled' => env('EASY_CAPTCHA_ENABLED', true),
     'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google, turnstile
+    'font_path' => env('EASY_CAPTCHA_FONT_PATH', 'IndieFlower'),
     // ...
 ];</code></pre>
+
+            <h3>Bundled Fonts</h3>
+            <p>You can use the following fonts by name in your <code>.env</code> or config:</p>
+            <ul style="list-style: none; margin-bottom: 2rem;">
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">IndieFlower</strong> (Default - Handwritten)</li>
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">SpecialElite</strong> (Typewriter style)</li>
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">CourierPrime</strong> (Monospace)</li>
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">Ubuntu-Bold</strong></li>
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">UbuntuMono-Regular</strong></li>
+                <li style="margin-bottom: 0.5rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">Ubuntu-Italic</strong></li>
+            </ul>
 
             <h2>Environment Variables</h2>
             <p>Most options can be controlled directly via your <code>.env</code> file:</p>

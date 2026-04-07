@@ -54,6 +54,15 @@ EASY_CAPTCHA_ENABLED=false
 EASY_CAPTCHA_TYPE=math
 ```
 
+### Bundled Fonts (Latest!)
+The package now comes with built-in fonts that you can use by name in your `.env` or config:
+- `IndieFlower` (Default - Handwritten)
+- `SpecialElite` (Typewriter style)
+- `CourierPrime` (Monospace)
+- `Ubuntu-Bold`
+- `UbuntuMono-Regular`
+- `Ubuntu-Italic`
+
 Supported types: 
 - `'random'` (Alphanumeric)
 - `'math'` (e.g., 5 + 3, validation checks for 8)
@@ -109,7 +118,7 @@ use Souravmsh\EasyCaptcha\Rules\Captcha;
 public function submit(Request $request) {
     // Option 1: String rule (Standard)
     $request->validate([
-        'captcha' => 'required|captcha'
+        'captcha' => 'required|easyCaptcha'
     ]);
 
     // Option 2: Class-based rule (More robust)
@@ -119,12 +128,12 @@ public function submit(Request $request) {
 
     // Option 3: Alias rule (More robust)
     $request->validate([
-        'captcha' => 'required|easy_captcha'
+        'captcha' => 'required|captcha'
     ]);
 
     // Option 4: Alias rule (More robust)
     $request->validate([
-        'captcha' => 'required|easyCaptcha'
+        'captcha' => 'required|easy_captcha'
     ]);
 
     // Success! 

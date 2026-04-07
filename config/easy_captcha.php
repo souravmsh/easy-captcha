@@ -45,7 +45,9 @@ return [
 
     'font_weight' => env('EASY_CAPTCHA_FONT_WEIGHT', 2), // Font weight for the CAPTCHA text (1 = normal, >1 = bolder) - range 1 to 5
 
-    'font_path' => env('EASY_CAPTCHA_FONT_PATH', null), // Provide absolute path to custom .ttf font file, otherwise default GD font is used
+    // Supported fonts: 'IndieFlower', 'SpecialElite', 'CourierPrime', 'Ubuntu-Bold', 'UbuntuMono-Regular', 'Ubuntu-Italic'
+    // Or provide absolute path to custom .ttf file
+    'font_path' => env('EASY_CAPTCHA_FONT_PATH', 'IndieFlower'),
 
     'lines' => env('EASY_CAPTCHA_LINES', 3), // Number of background noise lines
 

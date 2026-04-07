@@ -42,7 +42,7 @@ use Illuminate\Http\Request;
 
 public function store(Request $request) {
     $request->validate([
-        'captcha' => 'required|captcha',
+        'captcha' => 'required|easyCaptcha',
     ]);
 
     // Proceed with form processing
@@ -61,7 +61,7 @@ $request->validate([
 
 ### Using Aliases
 
-You can also use `easy_captcha` or `easyCaptcha` aliases:
+You can also use `captcha` or `easy_captcha` aliases:
 
 ```php
 $request->validate([

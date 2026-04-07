@@ -307,8 +307,15 @@ class CaptchaService
         $fontSize = $this->config['font_size'] ?? 20;
         $fontWeight = $this->config['font_weight'] ?? 1;
         $fontPath = $this->config['font_path'] ?? null;
+
+        if ($fontPath && !file_exists($fontPath)) {
+            $internalPath = __DIR__ . '/../resources/fonts/' . $fontPath . '.ttf';
+            if (file_exists($internalPath)) {
+                $fontPath = $internalPath;
+            }
+        }
         
-        if ($fontPath && function_exists('imagettftext')) {
+        if ($fontPath && file_exists($fontPath) && function_exists('imagettftext')) {
             $x = ($width - ($fontSize * strlen($text))) / 2;
             $y = ($height + $fontSize) / 2;
             
