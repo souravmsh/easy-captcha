@@ -6,7 +6,7 @@
 
 An easy, lightweight, pure image-based CAPTCHA package for Laravel (Requires ext-gd).
 No third-party APIs needed for local generation. The CAPTCHA generates standard image data dynamically directly via PHP.
-Also supports Google reCAPTCHA v2/v3 and **Cloudflare Turnstile** (Latest!).
+Also supports **Google reCAPTCHA v2/v3** and **Cloudflare Turnstile** (Latest!).
 
 **[View Landing Page & Documentation](https://souravmsh.github.io/easy-captcha/)**
 

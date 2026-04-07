@@ -225,7 +225,7 @@
             <p>After publishing, your configuration file will be located at <code>config/easy_captcha.php</code>.</p>
             <pre><code>return [
     'enabled' => env('EASY_CAPTCHA_ENABLED', true),
-    'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google
+    'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google, turnstile
     // ...
 ];</code></pre>
 
@@ -246,13 +246,21 @@ EASY_CAPTCHA_TYPE=math</code></pre>
                         style="color: var(--text);">number</strong>: Digits only.</li>
                 <li style="margin-bottom: 1rem; color: var(--text-dim);"><strong
                         style="color: var(--text);">google</strong>: Integration with Google reCAPTCHA.</li>
+                <li style="margin-bottom: 1rem; color: var(--text-dim);"><strong
+                        style="color: var(--text);">turnstile</strong>: Integration with Cloudflare Turnstile (Latest!).
+                </li>
             </ul>
 
-            <h2>Google reCAPTCHA</h2>
-            <p>To use Google reCAPTCHA, set the type to <code>google</code> and provide your site and secret keys:</p>
             <pre><code>EASY_CAPTCHA_TYPE=google
 EASY_CAPTCHA_GOOGLE_SITE_KEY=your-site-key-here
 EASY_CAPTCHA_GOOGLE_SECRET_KEY=your-secret-key-here</code></pre>
+
+            <h2>Cloudflare Turnstile Setup</h2>
+            <p>To use Cloudflare Turnstile, set the type to <code>turnstile</code> and provide your site and secret
+                keys:</p>
+            <pre><code>EASY_CAPTCHA_TYPE=turnstile
+EASY_CAPTCHA_TURNSTILE_SITE_KEY=your-site-key-here
+EASY_CAPTCHA_TURNSTILE_SECRET_KEY=your-secret-key-here</code></pre>
 
             <div style="margin-top: 4rem; display: flex; justify-content: space-between;">
                 <a href="installation.html" style="color: var(--text-dim); text-decoration: none; font-weight: 600;">
