@@ -31,6 +31,10 @@ class CaptchaService
         if ($type === 'google') {
             abort(404, 'Google reCAPTCHA does not utilize local generation endpoints.');
         }
+
+        if ($type === 'turnstile') {
+            abort(404, 'Cloudflare Turnstile does not utilize local generation endpoints.');
+        }
         
         $content = $this->generateContent($type, $this->config['length']);
         
@@ -55,6 +59,10 @@ class CaptchaService
 
         if ($type === 'google') {
             return $this->verifyGoogleRecaptcha($val);
+        }
+
+        if ($type === 'turnstile') {
+            return $this->verifyTurnstile($val);
         }
 
         if (!Session::has('easy_captcha')) {
@@ -125,6 +133,42 @@ class CaptchaService
     }
 
     /**
+     * Verifies against Cloudflare Turnstile endpoints
+     */
+    protected function verifyTurnstile($responseVal)
+    {
+        $secret = $this->config['turnstile_secret_key'] ?? '';
+        if (empty($secret)) {
+            throw new \Exception('Easy Captcha: Cloudflare Turnstile Secret Key (EASY_CAPTCHA_TURNSTILE_SECRET_KEY) must be set in the configuration when type is turnstile.');
+        }
+
+        $url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        $data = [
+            'secret'   => $secret,
+            'response' => $responseVal,
+            'remoteip' => request()->ip()
+        ];
+
+        $options = [
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            ]
+        ];
+
+        $context  = stream_context_create($options);
+        $result = @file_get_contents($url, false, $context);
+
+        if ($result === false) {
+            return false;
+        }
+
+        $response = json_decode($result, true);
+        return $response['success'] ?? false;
+    }
+
+    /**
      * Return html image tag.
      * 
      * @param array $attributes html attributes
@@ -151,6 +195,15 @@ class CaptchaService
             } else {
                 return '<script src="https://www.google.com/recaptcha/api.js?render=' . htmlspecialchars($siteKey) . '"></script>';
             }
+        }
+
+        if ($type === 'turnstile') {
+            $siteKey = $this->config['turnstile_site_key'] ?? '';
+            if (empty($siteKey)) {
+                throw new \Exception('Easy Captcha: Cloudflare Turnstile Site Key (EASY_CAPTCHA_TURNSTILE_SITE_KEY) must be set in the configuration when type is turnstile.');
+            }
+
+            return '<div class="cf-turnstile" data-sitekey="' . htmlspecialchars($siteKey) . '"></div><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>';
         }
 
         $url = route('easy-captcha.generate');

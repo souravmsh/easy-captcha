@@ -9,7 +9,7 @@ After publishing the config file, you will find it at `config/easy_captcha.php`.
 ```php
 return [
     'enabled' => env('EASY_CAPTCHA_ENABLED', true),
-    'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google
+    'type' => env('EASY_CAPTCHA_TYPE', 'math'), // options: random, math, alphabet, number, google, turnstile
     // ... other settings
 ];
 ```
@@ -30,6 +30,7 @@ EASY_CAPTCHA_TYPE=math
 - **alphabet**: Letters only.
 - **number**: Digits only.
 - **google**: Integration with Google reCAPTCHA v2/v3.
+- **turnstile**: Integration with Cloudflare Turnstile.
 
 ## Google reCAPTCHA Setup
 
@@ -39,6 +40,16 @@ To use Google reCAPTCHA, set the type to `google` and provide your site and secr
 EASY_CAPTCHA_TYPE=google
 EASY_CAPTCHA_GOOGLE_SITE_KEY=your-site-key-here
 EASY_CAPTCHA_GOOGLE_SECRET_KEY=your-secret-key-here
+```
+
+## Cloudflare Turnstile Setup
+
+To use Cloudflare Turnstile, set the type to `turnstile` and provide your site and secret keys in the `.env` file:
+
+```env
+EASY_CAPTCHA_TYPE=turnstile
+EASY_CAPTCHA_TURNSTILE_SITE_KEY=your-site-key-here
+EASY_CAPTCHA_TURNSTILE_SECRET_KEY=your-secret-key-here
 ```
 
 Next, learn how to [use](./usage.md) Easy Captcha in your forms.

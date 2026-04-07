@@ -5,8 +5,8 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 An easy, lightweight, pure image-based CAPTCHA package for Laravel (Requires ext-gd).
-No third-party APIs needed. The CAPTCHA generates standard image data dynamically directly via PHP.
-Also supports Google reCAPTCHA v2/v3.
+No third-party APIs needed for local generation. The CAPTCHA generates standard image data dynamically directly via PHP.
+Also supports Google reCAPTCHA v2/v3 and **Cloudflare Turnstile** (Latest!).
 
 **[View Landing Page & Documentation](https://souravmsh.github.io/easy-captcha/)**
 
@@ -60,6 +60,7 @@ Supported types:
 - `'alphabet'` (Letters only)
 - `'number'` (Numbers only)
 - `'google'` (Google reCAPTCHA v2/v3 support!)
+- `'turnstile'` (Cloudflare Turnstile support! - Latest)
 
 ### Setting up Google reCAPTCHA 
 If you choose `google` as the CAPTCHA type, our blade directive and validation facade will automatically hook into Google's APIs. If you want to use older version like v3 then spefify in config file, default is v3. Add your site/secret keys inside the `.env`:
@@ -69,6 +70,15 @@ EASY_CAPTCHA_TYPE=google
 EASY_CAPTCHA_GOOGLE_API_VERSION=3 
 EASY_CAPTCHA_GOOGLE_SITE_KEY=your-site-key-here
 EASY_CAPTCHA_GOOGLE_SECRET_KEY=your-secret-key-here
+```
+
+### Setting up Cloudflare Turnstile (Latest!)
+If you choose `turnstile` as the CAPTCHA type, our blade directive and validation facade will automatically hook into Cloudflare's APIs. Add your site/secret keys inside the `.env`:
+
+```env
+EASY_CAPTCHA_TYPE=turnstile
+EASY_CAPTCHA_TURNSTILE_SITE_KEY=your-site-key-here
+EASY_CAPTCHA_TURNSTILE_SECRET_KEY=your-secret-key-here
 ```
 
 ## Usage
